@@ -10,11 +10,11 @@ REST API Specification
    :maxdepth: 6
    :caption: Contents:
 
-   
+   socketrestapispecs
 
 
 Indices and tables
-==================
+------------------
 
 * :ref:`genindex`
 * :ref:`modindex`
