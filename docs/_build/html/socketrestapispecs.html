@@ -6,7 +6,7 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>FXCM Socket REST API User Guide &#8212; REST API Specification 1.0 documentation</title>
+    <title>1 Overview &#8212; REST API Specification 1.0 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="stylesheet" href="_static/css/custom.css" type="text/css" />
@@ -35,162 +35,15 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="fxcm-socket-rest-api-user-guide">
-<h1>FXCM Socket REST API User Guide<a class="headerlink" href="#fxcm-socket-rest-api-user-guide" title="Permalink to this headline">¶</a></h1>
-<table border="1" class="colwidths-given longtable docutils align-center" id="id3">
-<caption><span class="caption-text">Revision History</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
-<colgroup>
-<col width="33%" />
-<col width="33%" />
-<col width="33%" />
-</colgroup>
-<thead valign="bottom">
-<tr class="row-odd"><th class="head">Revision History</th>
-<th class="head">&#160;</th>
-<th class="head">&#160;</th>
-</tr>
-</thead>
-<tbody valign="top">
-<tr class="row-even"><td>Version</td>
-<td>Last Updated</td>
-<td>Comments</td>
-</tr>
-<tr class="row-odd"><td>2.1.1</td>
-<td>6-Feb-19</td>
-<td><dl class="first last docutils">
-<dt>Remove offer, leverage profile and properties from</dt>
-<dd>list of possible tables to be subscribed to</dd>
-</dl>
-</td>
-</tr>
-<tr class="row-even"><td>2.1</td>
-<td>2-Feb-19</td>
-<td>Added enumeration descriptions in trading tables and 
-array descriptions for price updates</td>
-</tr>
-<tr class="row-odd"><td>2</td>
-<td>16-Jan-18</td>
-<td><dl class="first last docutils">
-<dt>Clean up after OAuth removal and re-add get_instruments,</dt>
-<dd>update_subscriptions</dd>
-</dl>
-</td>
-</tr>
-<tr class="row-even"><td>1.9</td>
-<td>13-Sep-17</td>
-<td>Add table description on appendix</td>
-</tr>
-<tr class="row-odd"><td>1.8</td>
-<td>29-Jul-17</td>
-<td>Begin modifying requests to POST versions and standardizing style</td>
-</tr>
-<tr class="row-even"><td>1.7</td>
-<td>27-Jul-17</td>
-<td>Remove sample code, replaced by sample program (will be 
-upload to github for public access), to make documents nice and neat.</td>
-</tr>
-<tr class="row-odd"><td>1.6</td>
-<td>27-Jul-17</td>
-<td>Change accountId to account_id</td>
-</tr>
-<tr class="row-even"><td>1.5</td>
-<td>25-Jul-17</td>
-<td>Remove /trading/changePassword</td>
-</tr>
-<tr class="row-odd"><td>1.4</td>
-<td>28-Jun-17</td>
-<td>Replaced GET functions with POST, PATCH /DELETE</td>
-</tr>
-<tr class="row-even"><td>1.3</td>
-<td>27-Jun-17</td>
-<td>Removed command line and redundant functions</td>
-</tr>
-<tr class="row-odd"><td>1.2</td>
-<td>26-Jun-17</td>
-<td>Add Historical data</td>
-</tr>
-<tr class="row-even"><td>1.2</td>
-<td>22-Jun-17</td>
-<td>&#160;</td>
-</tr>
-<tr class="row-odd"><td>1</td>
-<td>15-May-17</td>
-<td>Added response, requests, diagrams, sample code</td>
-</tr>
-<tr class="row-even"><td>&#160;</td>
-<td>&#160;</td>
-<td>&#160;</td>
-</tr>
-</tbody>
-</table>
-<p>Contents</p>
-<ol class="arabic">
-<li><p class="first">Overview</p>
-</li>
-<li><p class="first">Getting Started</p>
-<blockquote>
-<div><p>2.1. Prerequisites</p>
-<p>2.2. Logon and Authentication</p>
-<p>2.3. Message Flow</p>
-</div></blockquote>
-</li>
-<li><p class="first">Authentication Messages</p>
-<blockquote>
-<div><p>3.1. Open Socket and get socket_id by passing access_token</p>
-</div></blockquote>
-</li>
-<li><p class="first">Market Data</p>
-<blockquote>
-<div><p>4.1. Request a list of all available symbols</p>
-<p>4.2. Subscribe to Market Data stream</p>
-<p>4.3. Unsubscribe from Market Data stream</p>
-<p>4.4. Price updates</p>
-</div></blockquote>
-</li>
-<li><p class="first">Trading Tables</p>
-<blockquote>
-<div><p>5.1. Subscribe to trading tables</p>
-<p>5.2. Unsubscribe from trading tables</p>
-<p>5.3. Request a snapshot of trading tables</p>
-<p>5.4. Trading table responses</p>
-<blockquote>
-<div><p>5.4.1. Offers table</p>
-<p>5.4.2. Open Positions table</p>
-<p>5.4.3. Closed Positions table</p>
-<p>5.4.4. Orders table</p>
-<p>5.4.5. Summary table</p>
-<p>5.4.6. Accounts table</p>
-</div></blockquote>
-</div></blockquote>
-</li>
-<li><p class="first">Trading Orders</p>
-<blockquote>
-<div><p>6.1. /trading/open_trade</p>
-<p>6.2. /trading/close_trade</p>
-<p>6.3. /trading/change_order</p>
-<p>6.4. /trading/delete_order</p>
-<p>6.5. /trading/create_entry_order</p>
-<p>6.6. /trading/simple_oco</p>
-<p>6.7. /trading/add_to_oco</p>
-<p>6.8. /trading/remove_from_oco</p>
-<p>6.9. /trading/edit_oco</p>
-<p>6.10. /trading/change_trade_stop_limit</p>
-<p>6.11. /trading/change_order_stop_limit</p>
-<p>6.12. /trading/close_all_for_symbol</p>
-</div></blockquote>
-</li>
-<li><p class="first">Historical Data</p>
-</li>
-</ol>
-<div class="section" id="overview">
-<h2>1 Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h2>
+  <div class="section" id="overview">
+<h1>1 Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
 <p>FXCM offers a web-based REST API which can be used to establish secure connectivity with FXCM’s trading systems for the purpose of receiving market data and trading.</p>
 <p>This document provides an overview of this API, optional tools and sample implementations.</p>
 </div>
 <div class="section" id="getting-started">
-<h2>2 Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<h1>2 Getting Started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="prerequisites">
-<h3>2.1 Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h3>
+<h2>2.1 Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
 <p>To use the REST API, you will need:</p>
 <ul>
 <li><p class="first">Access Token generated with Trading Station Web <a class="reference external" href="https://tradingstation.fxcm.com/">https://tradingstation.fxcm.com/</a></p>
@@ -205,7 +58,6 @@ upload to github for public access), to make documents nice and neat.</td>
 </li>
 </ul>
 </div>
-</div>
 <div class="section" id="logon-and-authentication">
 <h2>2.2 Logon and Authentication<a class="headerlink" href="#logon-and-authentication" title="Permalink to this headline">¶</a></h2>
 <p>REST API uses a persistent Access Token. You can generate this token by logging into Trading Station Web at <a class="reference external" href="https://tradingstation.fxcm.com/">https://tradingstation.fxcm.com/</a>.</p>
@@ -214,8 +66,8 @@ upload to github for public access), to make documents nice and neat.</td>
 <h2>2.3 Message Flow<a class="headerlink" href="#message-flow" title="Permalink to this headline">¶</a></h2>
 <p>Clients should establish a persistent WebSocket connection using socket.io library. All non-solicited updates will be sent over this connection. Client requests are to be sent via normal HTTP messages. Every HTTP message must contain following parameters:
 REQUEST</p>
-<table border="1" class="colwidths-given longtable docutils align-center" id="id4">
-<caption><span class="caption-text">Message Flow</span><a class="headerlink" href="#id4" title="Permalink to this table">¶</a></caption>
+<table border="1" class="colwidths-given longtable docutils align-center" id="id3">
+<caption><span class="caption-text">Message Flow</span><a class="headerlink" href="#id3" title="Permalink to this table">¶</a></caption>
 <colgroup>
 <col width="25%" />
 <col width="25%" />
@@ -276,10 +128,11 @@ token.</div></blockquote>
 </tbody>
 </table>
 </div>
+</div>
 <div class="section" id="authentication-messages">
-<h2>3 Authentication Messages<a class="headerlink" href="#authentication-messages" title="Permalink to this headline">¶</a></h2>
+<h1>3 Authentication Messages<a class="headerlink" href="#authentication-messages" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="open-socket-and-get-socket-id-by-passing-access-token">
-<h3>3.1 Open Socket and get socket_id by passing access_token<a class="headerlink" href="#open-socket-and-get-socket-id-by-passing-access-token" title="Permalink to this headline">¶</a></h3>
+<h2>3.1 Open Socket and get socket_id by passing access_token<a class="headerlink" href="#open-socket-and-get-socket-id-by-passing-access-token" title="Permalink to this headline">¶</a></h2>
 <p>Socket connection can be established automatically using socket.io-client library. The connection needs to have access_token obtained from Trading Station Web.
 REQUEST</p>
 <p>Header  Description     Values  Req’d
@@ -310,10 +163,14 @@ Date: Thu, 03 Aug 2017 12:08:11 GMT
 Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure
 Last-Modified: Thu, 03 Aug 2017 12:08:11 UTC</p>
-<p>97:0{“sid”:”HHGqC3Gao2ENa5tNAAEu”,”upgrades”:[“websocket”],”pingInterval”:25000,”pingTimeout”:60 000}
-4 Market Data
-4.1 Request a list of all available symbols
-We need to know which symbols are available for subscription.
+<p>97:0{“sid”:”HHGqC3Gao2ENa5tNAAEu”,”upgrades”:[“websocket”],”pingInterval”:25000,”pingTimeout”:60 000}</p>
+</div>
+</div>
+<div class="section" id="market-data">
+<h1>4 Market Data<a class="headerlink" href="#market-data" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="request-a-list-of-all-available-symbols">
+<h2>4.1 Request a list of all available symbols<a class="headerlink" href="#request-a-list-of-all-available-symbols" title="Permalink to this headline">¶</a></h2>
+<p>We need to know which symbols are available for subscription.
 REQUEST</p>
 <p>Header  Description     Values
 Req’d
@@ -350,9 +207,11 @@ Connection: close
 Last-Modified: Tue, 16 Jan 2018 17:27:44 UTC
 Vary: Accept-Encoding
 {“response”:{“executed”:true},”data”:{“instrument”:[{“symbol”:”EUR/USD”,”visible”:true,”order”:1
-},…
-4.2 Subscribe to Market Data stream
-After subscribing, market price updates will be pushed to the client via the socket.
+},…</p>
+</div>
+<div class="section" id="subscribe-to-market-data-stream">
+<h2>4.2 Subscribe to Market Data stream<a class="headerlink" href="#subscribe-to-market-data-stream" title="Permalink to this headline">¶</a></h2>
+<p>After subscribing, market price updates will be pushed to the client via the socket.
 REQUEST</p>
 <p>Header
 Description
@@ -404,9 +263,11 @@ ETag: W/”9d-YFo+3OmAbWV4Q8hgjKPcMA”
 Date: Fri, 28 Jul 2017 22:48:36 GMT
 Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Fri, 28 Jul 2017 22:48:36 UTC</p>
-<p>{“response”:{“executed”:true,”error”:”“},”pairs”:”{“Updated”:1501275479,”Rates”:[1.17481,1.1 7513,1.17653,1.167,1.17481,1.17513],”Symbol”:”EUR/USD”}”}
-4.3 Unsubscribe from Market Data stream
-REQUEST</p>
+<p>{“response”:{“executed”:true,”error”:”“},”pairs”:”{“Updated”:1501275479,”Rates”:[1.17481,1.1 7513,1.17653,1.167,1.17481,1.17513],”Symbol”:”EUR/USD”}”}</p>
+</div>
+<div class="section" id="unsubscribe-from-market-data-stream">
+<h2>4.3 Unsubscribe from Market Data stream<a class="headerlink" href="#unsubscribe-from-market-data-stream" title="Permalink to this headline">¶</a></h2>
+<p>REQUEST</p>
 <p>Header
 Description
 Values
@@ -459,6 +320,7 @@ Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Sec
 Last-Modified: Fri, 28 Jul 2017 22:48:40 UTC</p>
 <p>{“response”:{“executed”:true,”error”:”“},”pairs”:”EUR/USD”}
 4.4 Price updates
+—————–
 RESPONSE</p>
 <p>Parameter       Description     Values
 Updated         Time of the update      Integer epoch time in seconds
@@ -466,10 +328,14 @@ Rates   Price information       [Bid, Ask, Session High, Session Low]
 Symbol  Instrument of the update        String representation of the instrument
 Sample Response
 [“EUR/USD”,”{“Updated”:1503314642,”Rates”:[1.17614,1.17637,1.1771,1.17298],”Symbol”:”EUR/
-USD”}”]
-5 Trading Tables
-5.1 Subscribe to trading tables
-Subscribes to the updates of the data models. Update will be pushed to client via the socket.
+USD”}”]</p>
+</div>
+</div>
+<div class="section" id="trading-tables">
+<h1>5 Trading Tables<a class="headerlink" href="#trading-tables" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="subscribe-to-trading-tables">
+<h2>5.1 Subscribe to trading tables<a class="headerlink" href="#subscribe-to-trading-tables" title="Permalink to this headline">¶</a></h2>
+<p>Subscribes to the updates of the data models. Update will be pushed to client via the socket.
 REQUEST
 Header
 Description
@@ -519,9 +385,11 @@ ETag: W/”1e-/mvovEuhtN1hYjWJCVVEGQ”
 Date: Fri, 28 Jul 2017 23:19:59 GMT
 Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Fri, 28 Jul 2017 23:19:59 UTC</p>
-<p>{“response”:{“executed”:true}}
-5.2 Unsubscribe from trading tables
-Unsubscribes from the updates of the data models that are being pushed via the socket.
+<p>{“response”:{“executed”:true}}</p>
+</div>
+<div class="section" id="unsubscribe-from-trading-tables">
+<h2>5.2 Unsubscribe from trading tables<a class="headerlink" href="#unsubscribe-from-trading-tables" title="Permalink to this headline">¶</a></h2>
+<p>Unsubscribes from the updates of the data models that are being pushed via the socket.
 REQUEST</p>
 <p>Header
 Description
@@ -571,9 +439,11 @@ ETag: W/”1e-/mvovEuhtN1hYjWJCVVEGQ”
 Date: Fri, 28 Jul 2017 23:20:05 GMT
 Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Fri, 28 Jul 2017 23:20:05 UTC</p>
-<p>{“response”:{“executed”:true}}
-5.3 Request a snapshot of trading tables
-In case continuous updates of the trading tables is not needed, it is possible to request a one-time snapshot.
+<p>{“response”:{“executed”:true}}</p>
+</div>
+<div class="section" id="request-a-snapshot-of-trading-tables">
+<h2>5.3 Request a snapshot of trading tables<a class="headerlink" href="#request-a-snapshot-of-trading-tables" title="Permalink to this headline">¶</a></h2>
+<p>In case continuous updates of the trading tables is not needed, it is possible to request a one-time snapshot.
 Gets current content snapshot of the specified data models.
 Model choices: ‘Offer’, ‘OpenPosition’, ‘ClosedPosition’, ‘Order’, ‘Summary’, ‘LeverageProfile’, ‘Account’, ‘Properties’.
 REQUEST</p>
@@ -619,10 +489,13 @@ Date: Mon, 14 Aug 2017 15:01:06 GMT
 Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Mon, 14 Aug 2017 15:01:06 UTC
 Vary: Accept-Encoding</p>
-<p>{“response”:{“executed”:true},(…)
-5.4 Trading table responses
-5.4.1 Offers table
-This section describes the Offers table that contains information about trading instruments, current prices, and high/low trading day prices.
+<p>{“response”:{“executed”:true},(…)</p>
+</div>
+<div class="section" id="trading-table-responses">
+<h2>5.4 Trading table responses<a class="headerlink" href="#trading-table-responses" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="offers-table">
+<h3>5.4.1 Offers table<a class="headerlink" href="#offers-table" title="Permalink to this headline">¶</a></h3>
+<p>This section describes the Offers table that contains information about trading instruments, current prices, and high/low trading day prices.
 RESPONSE</p>
 <p>Parameter
 Description
@@ -690,9 +563,10 @@ D – Delete
 Sample Response
 “offers”:[{“t”:0,”ratePrecision”:5,”offerId”:1,”rollB”:-
 2.208,”rollS”:1.053,”fractionDigits”:5,”pip”:0.0001,”defaultSortOrder”:100,”currency”:”EUR/USD”, “instrumentType”:1,”valueDate”:”09152017”,”time”:”2017-09-
-13T15:26:49.000Z”,”sell”:1.18983,”buy”:1.19008,”sellTradable”:true,”buyTradable”:true,”high”:1.1 9962,”low”:1.18977,”volume”:1,”pipFraction”:0.1,”spread”:2.5,”mmr”:0.013,”emr”:0,”lmr”:0,”pipCos t”:0.0001}]
-5.4.1.1 Changing symbols subscribed to in Offers table
-Offers table will show only symbols that we have subscribed to using update_subscriptions. For a list of symbols available for subscription please see 4.1
+13T15:26:49.000Z”,”sell”:1.18983,”buy”:1.19008,”sellTradable”:true,”buyTradable”:true,”high”:1.1 9962,”low”:1.18977,”volume”:1,”pipFraction”:0.1,”spread”:2.5,”mmr”:0.013,”emr”:0,”lmr”:0,”pipCos t”:0.0001}]</p>
+<div class="section" id="changing-symbols-subscribed-to-in-offers-table">
+<h4>5.4.1.1 Changing symbols subscribed to in Offers table<a class="headerlink" href="#changing-symbols-subscribed-to-in-offers-table" title="Permalink to this headline">¶</a></h4>
+<p>Offers table will show only symbols that we have subscribed to using update_subscriptions. For a list of symbols available for subscription please see 4.1
 REQUEST</p>
 <p>Header  Description     Values
 Req’d
@@ -730,9 +604,12 @@ ETag: W/”1e-/mvovEuhtN1hYjWJCVVEGQ”
 Date: Tue, 16 Jan 2018 17:45:51 GMT
 Connection: close
 Last-Modified: Tue, 16 Jan 2018 17:45:50 UTC</p>
-<p>{“response”:{“executed”:true}}
-5.4.2 Open Positions table
-This section describes the Open Positions table that contains open positions data such as floating profit/loss, charged commission, cumulative interest, and so on.
+<p>{“response”:{“executed”:true}}</p>
+</div>
+</div>
+<div class="section" id="open-positions-table">
+<h3>5.4.2 Open Positions table<a class="headerlink" href="#open-positions-table" title="Permalink to this headline">¶</a></h3>
+<p>This section describes the Open Positions table that contains open positions data such as floating profit/loss, charged commission, cumulative interest, and so on.
 RESPONSE</p>
 <p>Parameter
 Description
@@ -817,8 +694,10 @@ D – Delete
 String
 Sample Response
 “open_positions”:[{“t”:1,”ratePrecision”:5,”tradeId”:”122743073”,”accountName”:”01027808”,”accou ntId”:”1027808”,”roll”:0,”com”:5,”open”:1.19719,”valueDate”:”“,”grossPL”:1.74,”close”:1.19632,”v isiblePL”:8.7,”isDisabled”:false,”currency”:”EUR/USD”,”isBuy”:false,”amountK”:2,”currencyPoint”: 0.2,”time”:”09152017143932”,”usedMargin”:52,”stop”:0,”stopMove”:0,”limit”:0}]</p>
-<p>5.4.3 Closed Positions table
-This section describes the Closed Positions table that contains information about the positions closed during the current trading day such as realized profit/loss, charged commission, cumulative interest, and so on.
+</div>
+<div class="section" id="closed-positions-table">
+<h3>5.4.3 Closed Positions table<a class="headerlink" href="#closed-positions-table" title="Permalink to this headline">¶</a></h3>
+<p>This section describes the Closed Positions table that contains information about the positions closed during the current trading day such as realized profit/loss, charged commission, cumulative interest, and so on.
 RESPONSE</p>
 <p>Parameter
 Description
@@ -881,9 +760,11 @@ U – Update
 D – Delete
 Sample Response
 “closed_positions”:[{“t”:2,”ratePrecision”:5,”tradeId”:”122643271”,”accountName”:”01027808”,”rol l”:3.85,”com”:10,”open”:1.19446,”valueDate”:”“,”grossPL”:-30.3,”close”:1.19749,”visiblePL”:-
-30.3,”currency”:”EUR/USD”,”isBuy”:false,”amountK”:10,”currencyPoint”:1,”openTime”:”0906201715274 9”,”closeTime”:”09152017143928”}
-5.4.4 Orders table
-This section describes the Orders table that contains information about orders. The data is kept in this table until all the orders are executed.
+30.3,”currency”:”EUR/USD”,”isBuy”:false,”amountK”:10,”currencyPoint”:1,”openTime”:”0906201715274 9”,”closeTime”:”09152017143928”}</p>
+</div>
+<div class="section" id="orders-table">
+<h3>5.4.4 Orders table<a class="headerlink" href="#orders-table" title="Permalink to this headline">¶</a></h3>
+<p>This section describes the Orders table that contains information about orders. The data is kept in this table until all the orders are executed.
 RESPONSE</p>
 <p>Parameter
 Description
@@ -1012,9 +893,11 @@ D – Delete
 Sample Response
 “orders”:[{“t”:3,”ratePrecision”:5,”orderId”:”236780744”,”tradeId”:”123022436”,”time”:”101720171
 03642”,”accountName”:”01073265”,”accountId”:”1073265”,”timeInForce”:”GTD”,”expireDate”:”10182017 205900”,”currency”:”EUR/USD”,”isBuy”:true,”buy”:1.16079,”sell”:0,”type”:”LE”,”status”:1,”amountK “:1,”currencyPoint”:0.1,”stopMove”:0,”stop”:0,”stopRate”:0,”limit”:0,”limitRate”:0,”isEntryOrder “:true,”ocoBulkId”:0,”isNetQuantity”:false,”isLimitOrder”:true,”isStopOrder”:false,”isELSOrder”:
-false,”stopPegBaseType”:-1,”limitPegBaseType”:-1,”range”:0}]
-5.4.5 Summary table
-This section describes the Summary table that contains summarized information such as the average entry price, profit/loss, and so on for every instrument currently traded.
+false,”stopPegBaseType”:-1,”limitPegBaseType”:-1,”range”:0}]</p>
+</div>
+<div class="section" id="summary-table">
+<h3>5.4.5 Summary table<a class="headerlink" href="#summary-table" title="Permalink to this headline">¶</a></h3>
+<p>This section describes the Summary table that contains summarized information such as the average entry price, profit/loss, and so on for every instrument currently traded.
 RESPONSE</p>
 <p>Parameter
 Description
@@ -1086,9 +969,11 @@ U – Update
 D – Delete
 Sample Response
 “summary”:[{“t”:5,”ratePrecision”:5,”offerId”:1,”currency”:”EUR/USD”,”plSell”:6.09,”amountKSell” :7,”avgSell”:1.19719,”closeBuy”:1.19632,”closeSell”:0,”avgBuy”:0,”amountKBuy”:0,”rollSum”:0,”use dMarginSell”:182,”usedMarginBuy”:0,”isSellDisabled”:false,”isBuyDisabled”:true,”plBuy”:0,”amount K”:-7,”currencyPoint”:-
-0.7,”grossPL”:6.09,”netPL”:1.09,”netStop”:0,”netStopMove”:0,”netLimit”:0}]
-5.4.6 Accounts table
-This section describes the Accounts table that contains the trading account data such as funds used in trading, idle funds, profits/losses, certain account limitations, and so on.
+0.7,”grossPL”:6.09,”netPL”:1.09,”netStop”:0,”netStopMove”:0,”netLimit”:0}]</p>
+</div>
+<div class="section" id="accounts-table">
+<h3>5.4.6 Accounts table<a class="headerlink" href="#accounts-table" title="Permalink to this headline">¶</a></h3>
+<p>This section describes the Accounts table that contains the trading account data such as funds used in trading, idle funds, profits/losses, certain account limitations, and so on.
 RESPONSE</p>
 <p>Parameter
 Description
@@ -1141,9 +1026,13 @@ I – Insert
 U – Update
 D – Delete
 Sample Response
-“accounts”:[{“t”:6,”ratePrecision”:0,”accountId”:”1027808”,”balance”:39208.63,”usdMr”:116,”mc”:” N”,”accountName”:”01027808”,”usdMr3”:58,”hedging”:”N”,”usableMargin3”:39152.26234,”usableMarginP erc”:99.70416,”usableMargin3Perc”:99.85208,”equity”:39210.26234,”usableMargin”:39094.26234,”dayP L”:-63.21766,”grossPL”:1.63234}]
-6 Trading Orders
-REQUEST</p>
+“accounts”:[{“t”:6,”ratePrecision”:0,”accountId”:”1027808”,”balance”:39208.63,”usdMr”:116,”mc”:” N”,”accountName”:”01027808”,”usdMr3”:58,”hedging”:”N”,”usableMargin3”:39152.26234,”usableMarginP erc”:99.70416,”usableMargin3Perc”:99.85208,”equity”:39210.26234,”usableMargin”:39094.26234,”dayP L”:-63.21766,”grossPL”:1.63234}]</p>
+</div>
+</div>
+</div>
+<div class="section" id="trading-orders">
+<h1>6 Trading Orders<a class="headerlink" href="#trading-orders" title="Permalink to this headline">¶</a></h1>
+<p>REQUEST</p>
 <p>Header
 Description
 Values
@@ -1151,9 +1040,10 @@ Req
 Method
 HTTP method
 POST
-Y
-6.1 /trading/open_trade
-URI     Resource        /trading/open_trade     Y
+Y</p>
+<div class="section" id="trading-open-trade">
+<h2>6.1 /trading/open_trade<a class="headerlink" href="#trading-open-trade" title="Permalink to this headline">¶</a></h2>
+<p>URI     Resource        /trading/open_trade     Y
 Parameter       Description     Values  Req’d
 account_id      The trade‘s account identifier. Can be found in         String  Y
 Accounts trading table as accountId 5.4.6. Not to be confused with accountName.
@@ -1208,9 +1098,11 @@ ETag: W/”2a-hJHeaXvf4OSF9grD6BYptQ”
 Date: Fri, 18 Aug 2017 21:05:21 GMT
 Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Fri, 18 Aug 2017 21:05:21 UTC</p>
-<p>{“response”:{“executed”:true},”data”:{“type”:0,”orderId”:81712802}}
-6.2 /trading/close_trade
-REQUEST</p>
+<p>{“response”:{“executed”:true},”data”:{“type”:0,”orderId”:81712802}}</p>
+</div>
+<div class="section" id="trading-close-trade">
+<h2>6.2 /trading/close_trade<a class="headerlink" href="#trading-close-trade" title="Permalink to this headline">¶</a></h2>
+<p>REQUEST</p>
 <p>Header  Description     Values
 Req
 Method  HTTP method     POST
@@ -1265,9 +1157,11 @@ ETag: W/”2a-hJHeaXvf4OSF9grD6BYptQ”
 Date: Fri, 18 Aug 2017 21:06:49 GMT
 Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Fri, 18 Aug 2017 21:06:49 UTC</p>
-<p>{“response”:{“executed”:true},”data”:{“type”:0,”orderId”:81713394}}
-6.3 /trading/change_order
-REQUEST</p>
+<p>{“response”:{“executed”:true},”data”:{“type”:0,”orderId”:81713394}}</p>
+</div>
+<div class="section" id="trading-change-order">
+<h2>6.3 /trading/change_order<a class="headerlink" href="#trading-change-order" title="Permalink to this headline">¶</a></h2>
+<p>REQUEST</p>
 <p>Header  Description     Values
 Req
 Method  HTTP method     POST
@@ -1304,9 +1198,11 @@ Execution successful
 Boolean
 Data
 Always null
-Null
-6.4 /trading/delete_order
-REQUEST</p>
+Null</p>
+</div>
+<div class="section" id="trading-delete-order">
+<h2>6.4 /trading/delete_order<a class="headerlink" href="#trading-delete-order" title="Permalink to this headline">¶</a></h2>
+<p>REQUEST</p>
 <p>Header  Description     Values
 Req
 Method  HTTP method     POST
@@ -1351,8 +1247,10 @@ Date: Fri, 18 Aug 2017 21:12:26 GMT
 Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Fri, 18 Aug 2017 21:12:26 UTC
 {“response”:{“executed”:true},”data”:null}</p>
-<p>6.5 /trading/create_entry_order
-REQUEST</p>
+</div>
+<div class="section" id="trading-create-entry-order">
+<h2>6.5 /trading/create_entry_order<a class="headerlink" href="#trading-create-entry-order" title="Permalink to this headline">¶</a></h2>
+<p>REQUEST</p>
 <p>Header  Description     Values  Req
 Method  HTTP method     POST    Y
 URI     Resource        /trading/create_entry_order     Y
@@ -1414,9 +1312,11 @@ ETag: W/”2a-hJHeaXvf4OSF9grD6BYptQ”
 Date: Tue, 22 Aug 2017 12:51:08 GMT
 Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Tue, 22 Aug 2017 12:51:08 UTC</p>
-<p>{“response”:{“executed”:true},”data”:{“type”:0,”orderId”:81716002}}
-6.6 /trading/simple_oco
-REQUEST</p>
+<p>{“response”:{“executed”:true},”data”:{“type”:0,”orderId”:81716002}}</p>
+</div>
+<div class="section" id="trading-simple-oco">
+<h2>6.6 /trading/simple_oco<a class="headerlink" href="#trading-simple-oco" title="Permalink to this headline">¶</a></h2>
+<p>REQUEST</p>
 <p>Header
 Description
 Values</p>
@@ -1526,9 +1426,11 @@ ETag: W/”31-L3CcNxew4MPQRwvnuhu6jw”
 Date: Tue, 22 Aug 2017 12:53:30 GMT
 Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Tue, 22 Aug 2017 12:53:30 UTC</p>
-<p>{“response”:{“executed”:true},”data”:[null,null]}
-6.7 /trading/add_to_oco
-REQUEST</p>
+<p>{“response”:{“executed”:true},”data”:[null,null]}</p>
+</div>
+<div class="section" id="trading-add-to-oco">
+<h2>6.7 /trading/add_to_oco<a class="headerlink" href="#trading-add-to-oco" title="Permalink to this headline">¶</a></h2>
+<p>REQUEST</p>
 <p>Header
 Description</p>
 <p>Values</p>
@@ -1574,9 +1476,11 @@ Date: Sun, 20 Aug 2017 22:43:50 GMT
 Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure
 Last-Modified: Sun, 20 Aug 2017 22:43:50 UTC</p>
-<p>{“response”:{“executed”:true},”data”:[null,null]}
-6.8 /trading/remove_from_oco
-REQUEST</p>
+<p>{“response”:{“executed”:true},”data”:[null,null]}</p>
+</div>
+<div class="section" id="trading-remove-from-oco">
+<h2>6.8 /trading/remove_from_oco<a class="headerlink" href="#trading-remove-from-oco" title="Permalink to this headline">¶</a></h2>
+<p>REQUEST</p>
 <p>Header  Description     Values
 Req
 Method  HTTP method     POST
@@ -1611,9 +1515,11 @@ ETag: W/”31-L3CcNxew4MPQRwvnuhu6jw”
 Date: Tue, 22 Aug 2017 12:22:17 GMT
 Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Tue, 22 Aug 2017 12:22:17 UTC</p>
-<p>{“response”:{“executed”:true},”data”:[null,null]}
-6.9 /trading/edit_oco
-REQUEST</p>
+<p>{“response”:{“executed”:true},”data”:[null,null]}</p>
+</div>
+<div class="section" id="trading-edit-oco">
+<h2>6.9 /trading/edit_oco<a class="headerlink" href="#trading-edit-oco" title="Permalink to this headline">¶</a></h2>
+<p>REQUEST</p>
 <p>Header  Description     Values
 Req
 Method  HTTP method     POST
@@ -1645,8 +1551,10 @@ executed        Execution successful</p>
 Data    Always null</p>
 <p>null
 Sample Response</p>
-<p>6.10 /trading/change_trade_stop_limit
-REQUEST
+</div>
+<div class="section" id="trading-change-trade-stop-limit">
+<h2>6.10 /trading/change_trade_stop_limit<a class="headerlink" href="#trading-change-trade-stop-limit" title="Permalink to this headline">¶</a></h2>
+<p>REQUEST
 Header
 Description
 Values
@@ -1709,9 +1617,11 @@ Date: Fri, 18 Aug 2017 21:17:10 GMT
 Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure
 Last-Modified: Fri, 18 Aug 2017 21:17:10 UTC
-{“response”:{“executed”:true},”data”:null}
-6.11 /trading/change_order_stop_limit
-REQUEST</p>
+{“response”:{“executed”:true},”data”:null}</p>
+</div>
+<div class="section" id="trading-change-order-stop-limit">
+<h2>6.11 /trading/change_order_stop_limit<a class="headerlink" href="#trading-change-order-stop-limit" title="Permalink to this headline">¶</a></h2>
+<p>REQUEST</p>
 <p>Header
 Description</p>
 <p>Values
@@ -1775,9 +1685,11 @@ ETag: W/”63-Yx45ecYLqzqI+h55XtkeqA”
 Date: Wed, 10 Jan 2018 16:44:21 GMT
 Connection: close
 Last-Modified: Wed, 10 Jan 2018 16:44:21 UTC</p>
-<p>{“response”:{“executed”:true},”data”:[{“type”:0,”orderId”:72513878},{“type”:0,”orderId”:72513881 }]}
-6.12 /trading/close_all_for_symbol
-REQUEST</p>
+<p>{“response”:{“executed”:true},”data”:[{“type”:0,”orderId”:72513878},{“type”:0,”orderId”:72513881 }]}</p>
+</div>
+<div class="section" id="trading-close-all-for-symbol">
+<h2>6.12 /trading/close_all_for_symbol<a class="headerlink" href="#trading-close-all-for-symbol" title="Permalink to this headline">¶</a></h2>
+<p>REQUEST</p>
 <p>Header
 Description
 Values
@@ -1829,9 +1741,12 @@ ETag: W/”2a-hJHeaXvf4OSF9grD6BYptQ”
 Date: Fri, 18 Aug 2017 21:12:43 GMT
 Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Fri, 18 Aug 2017 21:12:43 UTC
-{“response”:{“executed”:true},”data”:null}
-7 Historical Data
-Allow user to retrieve candles for a given instrument at a given time frame. If time range is specified, number of candles parameter is ignored, but still required.
+{“response”:{“executed”:true},”data”:null}</p>
+</div>
+</div>
+<div class="section" id="historical-data">
+<h1>7 Historical Data<a class="headerlink" href="#historical-data" title="Permalink to this headline">¶</a></h1>
+<p>Allow user to retrieve candles for a given instrument at a given time frame. If time range is specified, number of candles parameter is ignored, but still required.
 REQUEST</p>
 <p>Header
 Description
@@ -1911,8 +1826,6 @@ Vary: Accept-Encoding
 [1498147200,1.11457,1.11542,1.11549,1.11457,1.11481,1.11566,1.11572,1.11481,7491],
 [1498150800,1.11542,1.1142,1.11563,1.11382,1.11566,1.11444,1.11588,1.11406,8687]]}</p>
 </div>
-</div>
-</div>
 
 
           </div>
@@ -1923,20 +1836,57 @@ Vary: Accept-Encoding
         <div class="sphinxsidebarwrapper"><h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">FXCM Socket REST API User Guide</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#overview">1 Overview</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#getting-started">2 Getting Started</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#prerequisites">2.1 Prerequisites</a></li>
-</ul>
-</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">1 Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#getting-started">2 Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#prerequisites">2.1 Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#logon-and-authentication">2.2 Logon and Authentication</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#message-flow">2.3 Message Flow</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#authentication-messages">3 Authentication Messages</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#open-socket-and-get-socket-id-by-passing-access-token">3.1 Open Socket and get socket_id by passing access_token</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#authentication-messages">3 Authentication Messages</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#open-socket-and-get-socket-id-by-passing-access-token">3.1 Open Socket and get socket_id by passing access_token</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#market-data">4 Market Data</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#request-a-list-of-all-available-symbols">4.1 Request a list of all available symbols</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#subscribe-to-market-data-stream">4.2 Subscribe to Market Data stream</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unsubscribe-from-market-data-stream">4.3 Unsubscribe from Market Data stream</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#trading-tables">5 Trading Tables</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#subscribe-to-trading-tables">5.1 Subscribe to trading tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#unsubscribe-from-trading-tables">5.2 Unsubscribe from trading tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#request-a-snapshot-of-trading-tables">5.3 Request a snapshot of trading tables</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trading-table-responses">5.4 Trading table responses</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#offers-table">5.4.1 Offers table</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#changing-symbols-subscribed-to-in-offers-table">5.4.1.1 Changing symbols subscribed to in Offers table</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#open-positions-table">5.4.2 Open Positions table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#closed-positions-table">5.4.3 Closed Positions table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#orders-table">5.4.4 Orders table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#summary-table">5.4.5 Summary table</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#accounts-table">5.4.6 Accounts table</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="#trading-orders">6 Trading Orders</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#trading-open-trade">6.1 /trading/open_trade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trading-close-trade">6.2 /trading/close_trade</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trading-change-order">6.3 /trading/change_order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trading-delete-order">6.4 /trading/delete_order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trading-create-entry-order">6.5 /trading/create_entry_order</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trading-simple-oco">6.6 /trading/simple_oco</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trading-add-to-oco">6.7 /trading/add_to_oco</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trading-remove-from-oco">6.8 /trading/remove_from_oco</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trading-edit-oco">6.9 /trading/edit_oco</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trading-change-trade-stop-limit">6.10 /trading/change_trade_stop_limit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trading-change-order-stop-limit">6.11 /trading/change_order_stop_limit</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#trading-close-all-for-symbol">6.12 /trading/close_all_for_symbol</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#historical-data">7 Historical Data</a></li>
 </ul>
 
 <div class="relations">

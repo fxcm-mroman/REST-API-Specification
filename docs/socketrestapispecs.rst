@@ -1,106 +1,16 @@
-FXCM Socket REST API User Guide
-===============================
-
-.. tabularcolumns:: |p{1cm}|p{2cm}|p{3cm}|
-	
-.. csv-table:: Revision History
-   :file: _files/revhist.csv
-   :header-rows: 1
-   :class: longtable
-   :widths: 1 1 1
-   :align: center
-
- 	 
-Contents 
-
-1. Overview
-	
-2. Getting Started	
-
-	2.1. Prerequisites	
-		
-	2.2. Logon and Authentication
-			
-	2.3. Message Flow	
-		
-3. Authentication Messages	
-
-	3.1. Open Socket and get socket_id by passing access_token	
-		
-4. Market Data	
-
-	4.1. Request a list of all available symbols	
-		
-	4.2. Subscribe to Market Data stream	
-		
-	4.3. Unsubscribe from Market Data stream	
-		
-	4.4. Price updates	
-		
-5. Trading Tables		
-
-	5.1. Subscribe to trading tables	
-		
-	5.2. Unsubscribe from trading tables
-			
-	5.3. Request a snapshot of trading tables
-			
-	5.4. Trading table responses	
-	
-	
-		5.4.1. Offers table	
-			
-		5.4.2. Open Positions table	
-			
-		5.4.3. Closed Positions table	
-			
-		5.4.4. Orders table	
-			
-		5.4.5. Summary table
-				
-		5.4.6. Accounts table
-				
-6. Trading Orders
-
-	
-	6.1. /trading/open_trade	
-		
-	6.2. /trading/close_trade	
-		
-	6.3. /trading/change_order	
-		
-	6.4. /trading/delete_order	
-		
-	6.5. /trading/create_entry_order
-			
-	6.6. /trading/simple_oco
-			
-	6.7. /trading/add_to_oco
-		
-	6.8. /trading/remove_from_oco
-			
-	6.9. /trading/edit_oco	
-		
-	6.10. /trading/change_trade_stop_limit	
-		
-	6.11. /trading/change_order_stop_limit	
-		
-	6.12. /trading/close_all_for_symbol	
-		
-7. Historical Data	
-
-  
-1 Overview 
-----------
+1 Overview
+==========
 
 FXCM offers a web-based REST API which can be used to establish secure connectivity with FXCM’s trading systems for the purpose of receiving market data and trading.   
   
 This document provides an overview of this API, optional tools and sample implementations.  
 
 2 Getting Started 
------------------
+=================
+
 2.1 Prerequisites
-^^^^^^^^^^^^^^^^^ 
+-----------------
+
 To use the REST API, you will need: 
 
 * Access Token generated with Trading Station Web https://tradingstation.fxcm.com/  
@@ -113,6 +23,7 @@ To use the REST API, you will need:
 	
 2.2 Logon and Authentication 
 ----------------------------
+
 REST API uses a persistent Access Token. You can generate this token by logging into Trading Station Web at https://tradingstation.fxcm.com/. 
 
 2.3 Message Flow 
@@ -131,9 +42,11 @@ REQUEST
    :align: center 
   
 3 Authentication Messages 
--------------------------
+=========================
+
 3.1 Open Socket and get socket_id by passing access_token 
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------------------------------
+
 Socket connection can be established automatically using socket.io-client library. The connection needs to have access_token obtained from Trading Station Web. 
 REQUEST 
  
@@ -169,8 +82,11 @@ Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Sec
 Last-Modified: Thu, 03 Aug 2017 12:08:11 UTC 
  
 97:0{"sid":"HHGqC3Gao2ENa5tNAAEu","upgrades":["websocket"],"pingInterval":25000,"pingTimeout":60 000} 
+
 4 Market Data 
+=============
 4.1 Request a list of all available symbols 
+-------------------------------------------
 We need to know which symbols are available for subscription. 
 REQUEST 
  
@@ -214,7 +130,9 @@ Last-Modified: Tue, 16 Jan 2018 17:27:44 UTC
 Vary: Accept-Encoding  
 {"response":{"executed":true},"data":{"instrument":[{"symbol":"EUR/USD","visible":true,"order":1
 },… 
+
 4.2 Subscribe to Market Data stream 
+-----------------------------------
 After subscribing, market price updates will be pushed to the client via the socket. 
 REQUEST 
  
@@ -273,7 +191,10 @@ Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Fri, 28 Jul 2017 22:48:36 UTC 
  
 {"response":{"executed":true,"error":""},"pairs":"{\"Updated\":1501275479,\"Rates\":[1.17481,1.1 7513,1.17653,1.167,1.17481,1.17513],\"Symbol\":\"EUR/USD\"}"} 
+
 4.3 Unsubscribe from Market Data stream 
+---------------------------------------
+
 REQUEST 
  
 
@@ -332,6 +253,7 @@ Last-Modified: Fri, 28 Jul 2017 22:48:40 UTC
  
 {"response":{"executed":true,"error":""},"pairs":"EUR/USD"} 
 4.4 Price updates 
+-----------------
 RESPONSE 
  	 	 
 Parameter 	Description 	Values 	 
@@ -341,8 +263,11 @@ Symbol 	Instrument of the update 	String representation of the instrument
 Sample Response 
 ["EUR/USD","{\"Updated\":1503314642,\"Rates\":[1.17614,1.17637,1.1771,1.17298],\"Symbol\":\"EUR/
 USD\"}"] 
+
 5 Trading Tables 
+================
 5.1 Subscribe to trading tables 
+-------------------------------
 Subscribes to the updates of the data models. Update will be pushed to client via the socket. 
 REQUEST 	 
 Header 
@@ -397,7 +322,9 @@ Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Fri, 28 Jul 2017 23:19:59 UTC 
  
 {"response":{"executed":true}} 
+
 5.2 Unsubscribe from trading tables 
+-----------------------------------
 Unsubscribes from the updates of the data models that are being pushed via the socket. 
 REQUEST 
  
@@ -454,7 +381,9 @@ Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Fri, 28 Jul 2017 23:20:05 UTC 
  
 {"response":{"executed":true}} 
+
 5.3 Request a snapshot of trading tables 
+----------------------------------------
 In case continuous updates of the trading tables is not needed, it is possible to request a one-time snapshot. 
 Gets current content snapshot of the specified data models. 
 Model choices: 'Offer', 'OpenPosition', 'ClosedPosition', 'Order', 'Summary', 'LeverageProfile', 'Account', 'Properties'. 
@@ -508,8 +437,12 @@ Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Sec
 Vary: Accept-Encoding 
  
 {"response":{"executed":true},(…) 
+
 5.4 Trading table responses 
+---------------------------
+
 5.4.1 Offers table 
+^^^^^^^^^^^^^^^^^^
 This section describes the Offers table that contains information about trading instruments, current prices, and high/low trading day prices. 
 RESPONSE 
  
@@ -573,7 +506,9 @@ Sample Response
 "offers":[{"t":0,"ratePrecision":5,"offerId":1,"rollB":-
 2.208,"rollS":1.053,"fractionDigits":5,"pip":0.0001,"defaultSortOrder":100,"currency":"EUR/USD", "instrumentType":1,"valueDate":"09152017","time":"2017-09-
 13T15:26:49.000Z","sell":1.18983,"buy":1.19008,"sellTradable":true,"buyTradable":true,"high":1.1 9962,"low":1.18977,"volume":1,"pipFraction":0.1,"spread":2.5,"mmr":0.013,"emr":0,"lmr":0,"pipCos t":0.0001}] 
+
 5.4.1.1 Changing symbols subscribed to in Offers table 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Offers table will show only symbols that we have subscribed to using update_subscriptions. For a list of symbols available for subscription please see 4.1 
 REQUEST 
  
@@ -619,7 +554,9 @@ Connection: close
 Last-Modified: Tue, 16 Jan 2018 17:45:50 UTC 
  
 {"response":{"executed":true}} 
+
 5.4.2 Open Positions table 
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 This section describes the Open Positions table that contains open positions data such as floating profit/loss, charged commission, cumulative interest, and so on. 
 RESPONSE 
  
@@ -711,6 +648,7 @@ Sample Response
 "open_positions":[{"t":1,"ratePrecision":5,"tradeId":"122743073","accountName":"01027808","accou ntId":"1027808","roll":0,"com":5,"open":1.19719,"valueDate":"","grossPL":1.74,"close":1.19632,"v isiblePL":8.7,"isDisabled":false,"currency":"EUR/USD","isBuy":false,"amountK":2,"currencyPoint": 0.2,"time":"09152017143932","usedMargin":52,"stop":0,"stopMove":0,"limit":0}] 
  
 5.4.3 Closed Positions table 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 This section describes the Closed Positions table that contains information about the positions closed during the current trading day such as realized profit/loss, charged commission, cumulative interest, and so on. 
 RESPONSE 
  
@@ -779,7 +717,9 @@ D – Delete
 Sample Response 
 "closed_positions":[{"t":2,"ratePrecision":5,"tradeId":"122643271","accountName":"01027808","rol l":3.85,"com":10,"open":1.19446,"valueDate":"","grossPL":-30.3,"close":1.19749,"visiblePL":-
 30.3,"currency":"EUR/USD","isBuy":false,"amountK":10,"currencyPoint":1,"openTime":"0906201715274 9","closeTime":"09152017143928"} 
+
 5.4.4 Orders table 
+^^^^^^^^^^^^^^^^^^
 This section describes the Orders table that contains information about orders. The data is kept in this table until all the orders are executed. 
 RESPONSE 
  
@@ -917,7 +857,9 @@ Sample Response
 "orders":[{"t":3,"ratePrecision":5,"orderId":"236780744","tradeId":"123022436","time":"101720171
 03642","accountName":"01073265","accountId":"1073265","timeInForce":"GTD","expireDate":"10182017 205900","currency":"EUR/USD","isBuy":true,"buy":1.16079,"sell":0,"type":"LE","status":1,"amountK ":1,"currencyPoint":0.1,"stopMove":0,"stop":0,"stopRate":0,"limit":0,"limitRate":0,"isEntryOrder ":true,"ocoBulkId":0,"isNetQuantity":false,"isLimitOrder":true,"isStopOrder":false,"isELSOrder":
 false,"stopPegBaseType":-1,"limitPegBaseType":-1,"range":0}] 
+
 5.4.5 Summary table 
+^^^^^^^^^^^^^^^^^^^
 This section describes the Summary table that contains summarized information such as the average entry price, profit/loss, and so on for every instrument currently traded. 
 RESPONSE 
  
@@ -996,7 +938,9 @@ D – Delete
 Sample Response 
 "summary":[{"t":5,"ratePrecision":5,"offerId":1,"currency":"EUR/USD","plSell":6.09,"amountKSell" :7,"avgSell":1.19719,"closeBuy":1.19632,"closeSell":0,"avgBuy":0,"amountKBuy":0,"rollSum":0,"use dMarginSell":182,"usedMarginBuy":0,"isSellDisabled":false,"isBuyDisabled":true,"plBuy":0,"amount K":-7,"currencyPoint":-
 0.7,"grossPL":6.09,"netPL":1.09,"netStop":0,"netStopMove":0,"netLimit":0}] 
+
 5.4.6 Accounts table 
+^^^^^^^^^^^^^^^^^^^^
 This section describes the Accounts table that contains the trading account data such as funds used in trading, idle funds, profits/losses, certain account limitations, and so on. 
 RESPONSE 
  
@@ -1053,7 +997,9 @@ U – Update
 D – Delete 
 Sample Response 
 "accounts":[{"t":6,"ratePrecision":0,"accountId":"1027808","balance":39208.63,"usdMr":116,"mc":" N","accountName":"01027808","usdMr3":58,"hedging":"N","usableMargin3":39152.26234,"usableMarginP erc":99.70416,"usableMargin3Perc":99.85208,"equity":39210.26234,"usableMargin":39094.26234,"dayP L":-63.21766,"grossPL":1.63234}] 
+
 6 Trading Orders 
+================
 REQUEST 
  
 
@@ -1066,7 +1012,10 @@ Method
 HTTP method 
 POST 
 Y 
+
 6.1 /trading/open_trade 
+-----------------------
+
 URI 	Resource 	/trading/open_trade 	Y 
 Parameter 	Description 	Values 	Req’d 
 account_id 	The trade‘s account identifier. Can be found in 	String 	Y 
@@ -1126,7 +1075,9 @@ Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Fri, 18 Aug 2017 21:05:21 UTC 
  
 {"response":{"executed":true},"data":{"type":0,"orderId":81712802}} 
+
 6.2 /trading/close_trade 
+------------------------
 REQUEST 
  
 
@@ -1196,7 +1147,9 @@ Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Fri, 18 Aug 2017 21:06:49 UTC 
  
 {"response":{"executed":true},"data":{"type":0,"orderId":81713394}} 
+
 6.3 /trading/change_order 
+-------------------------
 REQUEST 
  
 
@@ -1240,7 +1193,9 @@ Boolean
 Data 
 Always null 
 Null 
+
 6.4 /trading/delete_order 
+-------------------------
 REQUEST 
  
 
@@ -1293,6 +1248,7 @@ Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Sec
  
  
 6.5 /trading/create_entry_order 
+-------------------------------
 REQUEST 
  
 Header 	Description 	Values 	Req 
@@ -1360,7 +1316,9 @@ Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Tue, 22 Aug 2017 12:51:08 UTC 
  
 {"response":{"executed":true},"data":{"type":0,"orderId":81716002}} 
+
 6.6 /trading/simple_oco 
+-----------------------
 REQUEST 
  
 
@@ -1496,7 +1454,9 @@ Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Tue, 22 Aug 2017 12:53:30 UTC 
  
 {"response":{"executed":true},"data":[null,null]} 
+
 6.7 /trading/add_to_oco 
+-----------------------
 REQUEST 
  
 
@@ -1565,7 +1525,9 @@ Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Sec
 Last-Modified: Sun, 20 Aug 2017 22:43:50 UTC 
  
 {"response":{"executed":true},"data":[null,null]} 
+
 6.8 /trading/remove_from_oco 
+----------------------------
 REQUEST 
  
 
@@ -1606,7 +1568,9 @@ Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Tue, 22 Aug 2017 12:22:17 UTC 
  
 {"response":{"executed":true},"data":[null,null]} 
+
 6.9 /trading/edit_oco 
+---------------------
 REQUEST 
  
 
@@ -1652,6 +1616,7 @@ Sample Response
 
 
 6.10 /trading/change_trade_stop_limit 
+-------------------------------------
 REQUEST 	 
 Header 
 Description 
@@ -1717,7 +1682,9 @@ Connection: close
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure 
 Last-Modified: Fri, 18 Aug 2017 21:17:10 UTC  
 {"response":{"executed":true},"data":null} 
+
 6.11 /trading/change_order_stop_limit 
+-------------------------------------
 REQUEST 
  
 
@@ -1795,7 +1762,10 @@ Connection: close
 Last-Modified: Wed, 10 Jan 2018 16:44:21 UTC 
  
 {"response":{"executed":true},"data":[{"type":0,"orderId":72513878},{"type":0,"orderId":72513881 }]} 
+
 6.12 /trading/close_all_for_symbol 
+----------------------------------
+
 REQUEST 
  
 
@@ -1853,7 +1823,9 @@ Date: Fri, 18 Aug 2017 21:12:43 GMT
 Connection: close 
 Set-Cookie: BIGipServerapi.fxcm.com=3698998282.42783.0000; path=/; Httponly; Secure Last-Modified: Fri, 18 Aug 2017 21:12:43 UTC  
 {"response":{"executed":true},"data":null} 
+
 7 Historical Data 
+=================
 Allow user to retrieve candles for a given instrument at a given time frame. If time range is specified, number of candles parameter is ignored, but still required. 
 REQUEST 
  
