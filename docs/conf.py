@@ -100,7 +100,7 @@ html_theme = 'alabaster'
 #       'navigation_depth': -1,
 #        'includehidden': True,
 #        'titles_only': False
-}
+#}
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
