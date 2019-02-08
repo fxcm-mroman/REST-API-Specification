@@ -1,136 +1,139 @@
 FXCM Socket REST API User Guide
--------------------------------
- 	  
-Revision History 
+===============================
 
-Version 
-Last Updated 
-Comments 
-2.1.1 
-Feb 6, 2019 
-Remove offer, leverage profile and properties from list of possible tables to be subscribed to 
-2.1 
-Feb 2, 2019 
-Added enumeration descriptions in trading tables and array descriptions for price updates 
-2.0 
-Jan 16, 2018 
-Clean up after OAuth removal and re-add get_instruments, update_subscriptions 
-1.9 
-Sept 13, 2017 
-Add table description on appendix 
-1.8 
-July 29, 2017 
-Begin modifying requests to POST versions and standardizing style 
-1.7 
-July 27, 2017 
-Remove sample code, replaced by sample program (will be upload to github for public access), to make documents nice and neat.  
-1.6 
-July 27, 2017 
-Change accountId to account_id 
-1.5 
-July  25, 2017 
-Remove /trading/changePassword 
-1.4 
-June 28, 2017 
-Replaced GET functions with POST, PATCH /DELETE 
-1.3 
-June 27, 2017 
-Removed command line and redundant functions 
-1.2 
-June 26, 2017 
-Add Historical data 
-1.2 
-June 22, 2017 
- 
-1.0 
-May 15, 2017 
-Added response, requests, diagrams, sample code 
- 
+.. tabularcolumns:: |p{1cm}|p{2cm}|p{3cm}|
+	
+.. csv-table:: Revision History
+   :file: _files/revhist.csv
+   :header-rows: 1
+   :class: longtable
+   :widths: 1 1 1
+   :align: center
+
  	 
 Contents 
-1 Overview	4
-2 Getting Started	4
-2.1 Prerequisites	4
-2.2 Logon and Authentication	4
-2.3 Message Flow	4
-3 Authentication Messages	5
-3.1 Open Socket and get socket_id by passing access_token	5
-4 Market Data	6
-4.1 Request a list of all available symbols	6
-4.2 Subscribe to Market Data stream	6
-4.3 Unsubscribe from Market Data stream	7
-4.4 Price updates	8
-5 Trading Tables	9
-5.1 Subscribe to trading tables	9
-5.2 Unsubscribe from trading tables	10
-5.3 Request a snapshot of trading tables	11
-5.4 Trading table responses	12
-5.4.1 Offers table	12
-5.4.2 Open Positions table	15
-5.4.3 Closed Positions table	16
-5.4.4 Orders table	17
-5.4.5 Summary table	20
-5.4.6 Accounts table	21
-6 Trading Orders	23
-6.1 /trading/open_trade	24
-6.2 /trading/close_trade	26
-6.3 /trading/change_order	27
-6.4 /trading/delete_order	28
-6.5 /trading/create_entry_order	30
-6.6 /trading/simple_oco	31
-6.7 /trading/add_to_oco	33
-6.8 /trading/remove_from_oco	34
-6.9 /trading/edit_oco	35
-6.10 /trading/change_trade_stop_limit	36
-6.11 /trading/change_order_stop_limit	36
-6.12 /trading/close_all_for_symbol	38
-7 Historical Data	39
+
+1. Overview
+	
+2. Getting Started	
+
+	2.1. Prerequisites	
+		
+	2.2. Logon and Authentication
+			
+	2.3. Message Flow	
+		
+3. Authentication Messages	
+
+	3.1. Open Socket and get socket_id by passing access_token	
+		
+4. Market Data	
+
+	4.1. Request a list of all available symbols	
+		
+	4.2. Subscribe to Market Data stream	
+		
+	4.3. Unsubscribe from Market Data stream	
+		
+	4.4. Price updates	
+		
+5. Trading Tables		
+
+	5.1. Subscribe to trading tables	
+		
+	5.2. Unsubscribe from trading tables
+			
+	5.3. Request a snapshot of trading tables
+			
+	5.4. Trading table responses	
+	
+	
+		5.4.1. Offers table	
+			
+		5.4.2. Open Positions table	
+			
+		5.4.3. Closed Positions table	
+			
+		5.4.4. Orders table	
+			
+		5.4.5. Summary table
+				
+		5.4.6. Accounts table
+				
+6. Trading Orders
+
+	
+	6.1. /trading/open_trade	
+		
+	6.2. /trading/close_trade	
+		
+	6.3. /trading/change_order	
+		
+	6.4. /trading/delete_order	
+		
+	6.5. /trading/create_entry_order
+			
+	6.6. /trading/simple_oco
+			
+	6.7. /trading/add_to_oco
+		
+	6.8. /trading/remove_from_oco
+			
+	6.9. /trading/edit_oco	
+		
+	6.10. /trading/change_trade_stop_limit	
+		
+	6.11. /trading/change_order_stop_limit	
+		
+	6.12. /trading/close_all_for_symbol	
+		
+7. Historical Data	
 
   
- 	 
 1 Overview 
-FXCM offers a web-based REST API which can be used to establish secure connectivity with FXCM’s trading systems for the purpose of receiving market data and trading.     
+----------
+
+FXCM offers a web-based REST API which can be used to establish secure connectivity with FXCM’s trading systems for the purpose of receiving market data and trading.   
+  
 This document provides an overview of this API, optional tools and sample implementations.  
+
 2 Getting Started 
-2.1 Prerequisites 
+-----------------
+2.1 Prerequisites
+^^^^^^^^^^^^^^^^^ 
 To use the REST API, you will need: 
-¥	Access Token generated with Trading Station Web https://tradingstation.fxcm.com/  
-¥	Socket.IO client library:  https://socket.io/docs/client-api/ o using JavaScript: https://www.npmjs.com/package/socket.io o using Python:  https://pypi.python.org/pypi/socketIO-client 
+
+* Access Token generated with Trading Station Web https://tradingstation.fxcm.com/  
+
+* Socket.IO client library:  https://socket.io/docs/client-api/ 
+
+	* using JavaScript: https://www.npmjs.com/package/socket.io 
+	
+	* using Python:  https://pypi.python.org/pypi/socketIO-client 
+	
 2.2 Logon and Authentication 
+----------------------------
 REST API uses a persistent Access Token. You can generate this token by logging into Trading Station Web at https://tradingstation.fxcm.com/. 
+
 2.3 Message Flow 
+----------------
  
 Clients should establish a persistent WebSocket connection using socket.io library. All non-solicited updates will be sent over this connection. Client requests are to be sent via normal HTTP messages. Every HTTP message must contain following parameters: 
 REQUEST 
  
- 
- 
-Header 
-Description 
-Values 
-Req’d 
-HTTP version 
-Version of HTTP used 
-HTTP/1.1 
-Y 
-User-Agent 
-Identification of the client software 
-request 
-Y 
-Accept 
-Acceptable response MIME type 
-application/json 
-Y 
-Content-Type 
-Media type of the request 
-application/x-www-form-urlencoded 
-Y 
-Authorization 
-Authorization string containing “Bearer “, ID of socket.io connection and persistent token. 
-'Bearer ' + socket_id + api_token 
-Y 
+.. tabularcolumns:: |p{1cm}|p{2cm}|p{3cm}|p{4cm}|
+	
+.. csv-table:: Message Flow
+   :file: _files/messageflow.csv
+   :header-rows: 1
+   :class: longtable
+   :widths: 1 1 1 1
+   :align: center 
+  
 3 Authentication Messages 
+-------------------------
 3.1 Open Socket and get socket_id by passing access_token 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Socket connection can be established automatically using socket.io-client library. The connection needs to have access_token obtained from Trading Station Web. 
 REQUEST 
  

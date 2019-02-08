@@ -1,0 +1,16 @@
+Revision History ,,
+Version ,Last Updated,Comments
+2.1.1 ,6-Feb-19,"Remove offer, leverage profile and properties from list of possible tables to be subscribed to"
+2.1,2-Feb-19,"Added enumeration descriptions in trading tables and array descriptions for price updates"
+2,16-Jan-18,"Clean up after OAuth removal and re-add get_instruments, update_subscriptions"
+1.9,13-Sep-17,Add table description on appendix
+1.8,29-Jul-17,Begin modifying requests to POST versions and standardizing style
+1.7,27-Jul-17,"Remove sample code, replaced by sample program (will be upload to github for public access), to make documents nice and neat. "
+1.6,27-Jul-17,Change accountId to account_id
+1.5,25-Jul-17,Remove /trading/changePassword
+1.4,28-Jun-17,"Replaced GET functions with POST, PATCH /DELETE"
+1.3,27-Jun-17,Removed command line and redundant functions
+1.2,26-Jun-17,Add Historical data
+1.2,22-Jun-17, 
+1,15-May-17,"Added response, requests, diagrams, sample code"
+ ,,

@@ -1,0 +1,7 @@
+REQUEST , , , 
+Header ,Description ,Values ,Req
+HTTP version ,Version of HTTP used ,HTTP/1.1 ,Y 
+User-Agent ,"Identification of the client software ",request ,Y 
+Accept ,Acceptable response MIME type ,application/json ,Y 
+Content-Type ,Media type of the request ,application/x-www-form-urlencoded ,Y 
+Authorization ,"Authorization string containing ""Bearer"", ID of socket.io connection and persistent token. ","Bearer ' + socket_id + api_token ",Y 
