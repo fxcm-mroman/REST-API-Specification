@@ -12,9 +12,9 @@
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('.'))
+import os
+import sys
+sys.path.insert(0, os.path.abspath('.'))
 
 
 # -- Project information -----------------------------------------------------
@@ -80,14 +80,14 @@ pygments_style = 'sphinx'
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinxjp'
+html_theme = 'alabaster'
 #html_logo = 'fxcm-blue-2.png'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
 # documentation.
 #
-html_theme_options = {
+#html_theme_options = {
 #    'canonical_url': '',
 #        'analytics_id': 'UA-XXXXXXX-1',  #  Provided by Google in your dashboard
 #        'logo_only': False,
@@ -115,7 +115,13 @@ html_static_path = ['_static']
 # default: ``['localtoc.html', 'relations.html', 'sourcelink.html',
 # 'searchbox.html']``.
 #
-# html_sidebars = {}
+html_sidebars = {
+    '**': [
+        'navigation.html',
+        'relations.html',  # needs 'show_related': True theme option to display
+        'searchbox.html',
+    ]
+}
 
 
 # -- Options for HTMLHelp output ---------------------------------------------
@@ -174,6 +180,9 @@ texinfo_documents = [
      'Miscellaneous'),
 ]
 
+def setup(app):
+        app.add_stylesheet('css/custom.css')
+        
 
 # -- Extension configuration -------------------------------------------------
 
