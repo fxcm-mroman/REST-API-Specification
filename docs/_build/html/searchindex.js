@@ -1,1 +1,1 @@
-Search.setIndex({docnames:["index"],envversion:55,filenames:["index.rst"],objects:{},objnames:{},objtypes:{},terms:{index:0,modul:0,page:0,search:0},titles:["Welcome to REST API Specification\u2019s documentation!"],titleterms:{api:0,document:0,indic:0,rest:0,specif:0,tabl:0,welcom:0}})
+Search.setIndex({docnames:["index"],envversion:55,filenames:["index.rst"],objects:{},objnames:{},objtypes:{},terms:{index:0,modul:0,page:0,search:0},titles:["REST API Specification"],titleterms:{api:0,indic:0,rest:0,specif:0,tabl:0}})
